@@ -2,7 +2,7 @@
 
 This is a simple Lorem Ipsum generator I made for a talk I gave titled "The History and Usage of Lorem Ipsum." In the strain of "Fun" ipsums I created an Ipsum that only returns prepositions, thus: Preposipsum.
 
-The following code is from prepositions controller, and call every time a user hits 'preposipsify'
+The following code is from prepositions controller, and calls every time a user hits 'preposipsify'
 ```ruby
   def index
 
@@ -27,7 +27,7 @@ The following code is from prepositions controller, and call every time a user h
   end
 ```
 
-The following are are all private methods:
+The following are all private methods:
 
 First I create a sentence
 ```ruby
@@ -45,7 +45,7 @@ def sentence
   #add my first word to my sentence and capitalize
   sen = sen + words_first.p.capitalize
 
-  #iterate through my list or words and add them all to my sentence
+  #iterate through my list of words and add them all to my sentence
   words_list.each do |w|
     sen = sen + " " + w.p
   end
