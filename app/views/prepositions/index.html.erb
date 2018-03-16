@@ -3,37 +3,44 @@
 
 <div class="jumbotron">
   <h1 class="display-3">Preposipsum</h1>
-  <p class="lead">This Ipsum will return nothing but prepositions. I made it to go along with a presentation a created titled "The History and Use of Laurem Ipsum". The git repo for this project can be found here and my linkedin may be found here.
-  <br /><br /> Thank you,
-  <br /> Nico D'Amico-Barbour</p>
+  <p class="lead">This Ipsum will return nothing but prepositions. I made it to go along with a presentation I created titled "The History and Use of Laurem Ipsum". The git repo for this project can be found <a href="https://github.com/ndamicobarbour/preposipsum">here</a> and my linkedin may be found <a href='https://www.linkedin.com/in/nico-damico-barbour/'>here</a>. Thanks for stopping by! &nbsp; &nbsp; - &nbsp; &nbsp; Nico D'Amico-Barbour</p>
 </div>
 
 
-
-
-
-
-
-
-
-<!-- <table>
-  <thead>
-    <tr>
-      <th>P</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @prepositions.each do |preposition| %>
-      <tr>
-        <td><%= preposition.p %></td>
-        <td><%= link_to 'Show', preposition %></td>
-        <td><%= link_to 'Edit', edit_preposition_path(preposition) %></td>
-        <td><%= link_to 'Destroy', preposition, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table> -->
-
-<br>
+<div style="display: flex; margin-left: auto; margin-right: auto">
+  <div class="card text-white bg-dark mb-3" style="text-align: center; max-width: 20em; margin-left: auto; margin-right: auto">
+    <div class="card-body">
+      <p class="card-text">
+        <form  action='prepositions' method='get'>
+          <fieldset>
+            <legend>Generate Preposipsum</legend>
+            <div class="form-group">
+              <label for="exampleSelect1">Paragraph Length</label>
+              <select class="form-control" id="exampleSelect1" name="plength">
+                <option value="3">Short</option>
+                <option value="6">Medium</option>
+                <option value="9">Long</option>
+              </select>
+              <div class="form-group">
+                <label for="exampleSelect1">Number of Paragraphs</label>
+                <select class="form-control" id="exampleSelect1" name="pnumber">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select> <br />
+            <button type="submit" class="btn btn-primary">Preposipsify</button>
+          </fieldset>
+        </form>
+      </p>
+    </div>
+  </div>
+  <div class="card text-white bg-dark mb-3" style="width: 60rem; margin-left: auto; margin-right: auto">
+    <div class="card-body">
+      <p class="card-text">
+        <%= @prepositions ? @prepositions.html_safe : "" %>
+      </p>
+    </div>
+  </div>
+</div>

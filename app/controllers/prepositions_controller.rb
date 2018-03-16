@@ -1,74 +1,81 @@
 class PrepositionsController < ApplicationController
-  before_action :set_preposition, only: [:show, :edit, :update, :destroy]
 
-  # GET /prepositions
-  # GET /prepositions.json
   def index
-    @prepositions = Preposition.all
-  end
 
-  # GET /prepositions/1
-  # GET /prepositions/1.json
-  def show
-  end
+    #Set Paragraph Length and Paragraph Count variables from params
+    plength = params[:plength]
+    pnumber = params[:pnumber]
 
-  # GET /prepositions/new
-  def new
-    @preposition = Preposition.new
-  end
-
-  # GET /prepositions/1/edit
-  def edit
-  end
-
-  # POST /prepositions
-  # POST /prepositions.json
-  def create
-    @preposition = Preposition.new(preposition_params)
-
-    respond_to do |format|
-      if @preposition.save
-        format.html { redirect_to @preposition, notice: 'Preposition was successfully created.' }
-        format.json { render :show, status: :created, location: @preposition }
-      else
-        format.html { render :new }
-        format.json { render json: @preposition.errors, status: :unprocessable_entity }
-      end
+    #Check if variables have been set, then convert from string to integers
+    if plength
+      plength = plength.to_i
     end
-  end
 
-  # PATCH/PUT /prepositions/1
-  # PATCH/PUT /prepositions/1.json
-  def update
-    respond_to do |format|
-      if @preposition.update(preposition_params)
-        format.html { redirect_to @preposition, notice: 'Preposition was successfully updated.' }
-        format.json { render :show, status: :ok, location: @preposition }
-      else
-        format.html { render :edit }
-        format.json { render json: @preposition.errors, status: :unprocessable_entity }
-      end
+    if pnumber
+      pnumber = pnumber.to_i
     end
-  end
 
-  # DELETE /prepositions/1
-  # DELETE /prepositions/1.json
-  def destroy
-    @preposition.destroy
-    respond_to do |format|
-      format.html { redirect_to prepositions_url, notice: 'Preposition was successfully destroyed.' }
-      format.json { head :no_content }
+    #Generate a paragraph, passing in count and number
+    if pnumber
+      @prepositions = paragraphs(pnumber, plength)
     end
+
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_preposition
-      @preposition = Preposition.find(params[:id])
+
+    def sentence
+
+      #declare my sentence variable
+      sen = ""
+
+      #call a random word from my database of prepositions as first word in my sentence
+      words_first = Preposition.all.shuffle[1]
+
+      #create a list of random words 4 to 9 words long
+      words_list = Preposition.all.shuffle[4..9]
+
+      #add my first word to my sentence and capitalize
+      sen = sen + words_first.p.capitalize
+
+      #iterate through my list or words and add them all to my sentence
+      words_list.each do |w|
+        sen = sen + " " + w.p
+      end
+
+      #add a period to the end of my sentence
+      sen = sen + "."
+
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def preposition_params
-      params.require(:preposition).permit(:p)
+    def paragraph (length)
+
+      #declare a variable for my paragraph
+      par = ""
+
+      #call the sentence method a number of times equal to the argument and add the output to my sentence
+      length.times do
+        par = par + sentence + " "
+      end
+
+      #return the paragraph
+      par
     end
+
+    def paragraphs (pnum, plen)
+
+      #declare a variable for my entire output
+      para = ""
+
+      #add a number of paragraphs to our output based on the first argument, add line breaks after each paragraph if that paragraph is not the last
+      pnum.times do
+        pnum -= 1
+        para = para + paragraph(plen)
+        pnum != 0 ? (para = para + "<br>" + "<br>") : para
+      end
+
+      #return the output
+      para
+    end
+
 end
